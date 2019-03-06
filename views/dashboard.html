@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<script src="//code.jquery.com/jquery.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="col-md-9 col-md-offset-2">
+			 
+			<h3>User List</h3>
+			<h5><a href="/logout">Logout</a></h5>
+			<table id="userList" class="table table-bordered">
+				<thead>
+					<tr>
+						<th>S.No</th>
+						<th>Name</th>
+						<th>Email</th> 
+						<th class="col-md-2">Vote</th>
+					</tr>
+				</thead> 
+				<tbody>
+
+				</tbody> 
+			</table>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+	$(document).ready(function() {
+
+		function userData() { 
+			var url = "http://localhost:3001/listUser";
+			$.ajax({
+				url : url,
+				type : "GET",
+				dataType : "JSON",
+				success : function(response) {
+
+					if (response.status == "success") {
+						var userData = response.data; 
+						var html = "";
+						var counter = 1;
+						$.each(userData, function(key, value) {
+							html += "<tr>";
+							html += "<td>"+counter+++"</td>";
+							html += "<td>"+userData[key].name+"</td>";
+							html += "<td>"+userData[key].email+"</td>"; 	
+							html += "<td>";
+							html += '<div class="input-group">';
+							html += '<span class="input-group-addon minus" data-email="'+ userData
+							[key].email +'" id=""><i class="glyphicon glyphicon-minus"></i></span>';
+							html += '<input id="vote" type="text" class="form-control" name="vote" value="' + userData[key].vote + '">';
+							html += '<span class="input-group-addon plus" data-email="'+ userData
+							[key].email +'" id=""><i class="glyphicon glyphicon-plus"></i></span>';
+							html += '</div>';
+							html += "</td>";
+							html += "</tr>";
+						});
+
+						$("#userList tbody").empty().append(html);
+					}else if (response.status == "error") {
+						var html = "";
+
+						html += "<tr>"; 
+						html += "<td colspan='6'>"+ response.message +"</td>";
+						html += "</tr>";
+					
+						$("#userList tbody").empty().append(html);
+					}
+				}
+			});
+		}
+
+		// call on page load
+		userData();
+	
+	});
+
+	$(document).on("click",".plus", function() {  
+		var vote = parseInt($(this).prev("#vote").val()) + 1; 
+			vote = vote < 1 ? 0 : vote;	
+		var url = "http://localhost:3001/vote";
+		var email = $(this).data("email");
+		$.ajax({
+			url : url,
+			type : "POST",
+			dataType : "JSON",
+			data : {email : email, vote : vote},
+			success : function(response) {
+				if (response.status == "success") {
+					// location.reload();
+				}
+			}
+		});
+
+		$(this).prev("#vote").val(vote);
+	});
+
+	$(document).on("click",".minus", function() { 
+		var vote = parseInt($(this).next("#vote").val()) - 1;
+			vote = vote < 1 ? 0 : vote;
+		var url = "http://localhost:3001/vote";
+		var email = $(this).data("email");
+		$.ajax({
+			url : url,
+			type : "POST",
+			dataType : "JSON",
+			data : {email : email, vote : vote},
+			success : function(response) {
+				if (response.status == "success") {
+					// location.reload();
+				}
+			}
+		});
+
+		$(this).next("#vote").val(vote);
+	});
+
+	</script>
+</body>
+</html>
