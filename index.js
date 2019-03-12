@@ -42,56 +42,6 @@ var regExp = {
 
 var url = "mongodb://localhost:27017/";
 
-app.get("/api/sendmail", function(req, res) {
-	var trasnporter = nodemailer.createTransport({
-		service : "gmail",
-		auth : {
-			user : "vishalkumar750372@gmail.com",
-			pass : "vishal@1997",
-		}
-	});
-
-	var formData = {
-		name : "Vishal Kumar",
-		email : "vishal@incaendo.com",
-		password : "12345678",
-	}
-
-	message = "<p> Hi <b>" + formData.name + "</b>, </p>";
-	message+= "<p> You have successfully registered with us.</p>";
-	message+= "<p> Login Credentials</p>";
-	message+= "<p> Email : " + formData.email + "</p>";
-	message+= "<p> Password : " + formData.password + "</p><br><br>";
-	message+= "<p> Thank You....!</p>";
-	message+= "<br>";
-
-	var mailoptions = {
-		from : "'Fred Foo 👻' <vishalkumar750372@gmail.com>",
-		to : "vishal@incaendo.com",
-		subject : "Node Mail Testing",
-		html : message
-	}
-
-	trasnporter.sendMail(mailoptions, function(err, result) {
-		if (err) {
-			console.log(err);
-			response = {
-				status : "error",
-				error : err
-			}
-			res.end(JSON.stringify(response));
-		}else{
-			response = {
-				status : "success",
-				message : "Mail sent successfully",
-				return : result
-			}
-
-			res.end(JSON.stringify(response));
-		}
-	});
-});
-
 app.get("/signup", function(req, res) {
 	res.sendFile(__dirname + "/views/signup.html");
 });
