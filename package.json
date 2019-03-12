@@ -4,16 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index",
+    "dev": "nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "asyncawait": "^1.0.8",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "express-validator": "^5.3.1",
-    "mongodb": "^3.1.13"
+    "fibers": "^3.1.1",
+    "mongodb": "^3.1.13",
+    "nodemailer": "^5.1.1",
+    "nodemon": "^1.18.10",
+    "nvm": "0.0.4"
   }
 }

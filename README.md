@@ -3,7 +3,7 @@ Api Doc -
 
 1. Signup
 
-	Url - /signup
+	Url - /api/signup
 	Request Type - POST
 
 	Fields -
@@ -12,13 +12,13 @@ Api Doc -
 	c. password 
 
 	Response Example - 
-	Success : 
+	Success : On Successfull registration
 	{
 		status : "success",
 		message : "You have successfully registered with us. Now you may login.",
 	}
 
-	Error : 
+	Error : Form validation errors
 	{
 	    "status": "error",
 	    "errors": {
@@ -28,9 +28,15 @@ Api Doc -
 	    }
 	}
 
+	Error : When you missed the fields while requesting
+	{
+	    "status": "error",
+	    "message": "Missing : Please include name, email and password"
+	}
+
 2. Login
 
-	Url - /login
+	Url - /api/login
 	Request Type - POST
 
 	Fields - 
@@ -38,13 +44,13 @@ Api Doc -
 	b. password
 
 	Response Example - 
-	Success : 
+	Success : On successfull login credentials
 	{
 		status : "success",
 		message : "You have successfully logged in.",
 	}
 
-	Error : 
+	Error : Form validation
 	{
 	    "status": "error",
 	    "errors": {
@@ -53,7 +59,7 @@ Api Doc -
 	    }
 	}
 
-	Authentication Failed Error : 
+	Error : Authentication Failed 
 	{
 	    "status": "error",
 	    "errors": {
@@ -61,12 +67,18 @@ Api Doc -
 	    }
 	}
 
+	Error : When you missed the fields while requesting
+	{
+	    "status": "error",
+	    "message": "Missing : Please include email and password"
+	}
+
 	After successfull authentication user will go to Dashboard - Url - /dashboard
 
 
-3.	Users List (Dashboard)
+3.	Dashboard Users List
 	
-	Url - /listUser
+	Url - /api/users
 	Request Type - GET
 
 	Response Example - 
@@ -96,7 +108,7 @@ Api Doc -
 
 4. Vote
 
-	Url - /vote
+	Url - /api/vote
 	Request Type - POST
 
 	Fields - 
@@ -113,13 +125,13 @@ Api Doc -
 
 	Error : 
 	{
-	    	"status": "error",
-	    	"message": "Data not found"
+		"status": "error",
+		"message": "Data not found"
 	}
 
 5. Logout
 
-	Url - /logout
+	Url - /api/logout
 	Request Type - GET
 	
 	Response

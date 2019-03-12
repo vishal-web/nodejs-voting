@@ -18,47 +18,19 @@
 
 				<div class="form-group">
 					<label>Email</label>
-					<input type="text" class="form-control" name="email" value="" placeholder="Enter Your Email">
+					<input type="text" class="form-control" name="email" value="" placeholder="Enter your email">
 				</div>
 				<div class="form-group">
 					<label>Password</label>
-					<input type="text" class="form-control" name="password" value="" placeholder="Enter Your Password">
+					<input type="password" class="form-control" name="password" value="" placeholder="Enter your password">
 				</div>
 				<div class="form-group">
 					<input type="submit" name="submit" class="btn btn-primary" id="submit" value="Login">
+					<a class="pull-right" href="/signup">Don't have an account ...?</a>
 				</div>
 			</form>
 		</div>
 	</div>
-
-
-	<script type="text/javascript">
-		$(".loginForm").click("#login", function(e) {
-			e.preventDefault();
-
-			var url = "http://localhost:3001/login";
-
-			$.ajax({
-				url : url,
-				method : "POST",
-				dataType : "JSON",
-				data : $(".loginForm").serializeArray(),
-				success: function(res) {
-					if (res.status == "error") {
-						var html = "";
-						$.each(res.errors, function(key, value) {		
-							html += "<p class='text-danger'>"+value+"</p>"; 
-						});
-					
-						$("#err").empty().append(html);
-					}else if(res.status == "success") { 
-						$("#err").empty().append("<div class='alert alert-success'>"+res.message+"</div>");
-						$(".loginForm").trigger("reset");
-						window.location.href = '/dashboard';
-					}
-				}
-			});
-		});
-	</script>
+	<script type="text/javascript" src="js/common.js"></script>
 </body>
 </html>
