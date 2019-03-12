@@ -425,5 +425,4 @@ app.get("/api/logout", function(req, res) {
 	}
 	res.set("Content-Type","JSON");
 	return res.end(JSON.stringify(response));
-	// res.redirect("/login");
 });
