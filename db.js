@@ -4,17 +4,9 @@ const MongoClient = mongodb.MongoClient;
 let db;
 let url = "mongodb://localhost:27017";
 
-const getItems = function() {
-	return new Promise(function(resolve, reject){
-		setTimeout(function() {
-			resolve(['A', 'B', 'C', 'D']);
-		}, 2000);
-	});
-}
-
-const dbconnect = function() {
-	return new Promise(function(resolve, reject) {
-		MongoClient.connect(url, {useNewUrlParser : true}, function(connectErr, client){
+const dbconnect = () => {
+	return new Promise((resolve, reject) => {
+		MongoClient.connect(url, {useNewUrlParser : true}, (connectErr, client) => {
 			if (connectErr) {
 				response = {
 					"status": "error",
@@ -25,15 +17,14 @@ const dbconnect = function() {
 				reject(response);
 				/*console.log(JSON.stringify(response));
 				process.exit();*/
-			}else{
-				console.log("Database connection established");
-				db = client.db("mydb");  
+			} else {
+				console.log("Database connection established.");
+				db = client.db("mydb"); 
 				resolve(db);
 			}
 		}); 
 	}); 
 }
-
 
 module.exports = {
 	dbconnect : dbconnect,
