@@ -5,9 +5,21 @@ const auth_controller = require('../controllers/authController');
 const dashboard_controller = require('../controllers/dashboardController');
 const user_controller = require('../controllers/userController');
 
+const routerLoggerMiddleware = (req, res, next) => {
+	console.log('Router Logged '+ req.originalUrl + ' -- ' + new Date);
+	next()
+}
+
+const specialLogger = (req, res, next) => {
+	console.log('Special Logger For Signup');
+	next()
+}
+
+router.use(routerLoggerMiddleware);
+
 
 router.get('/', auth_controller.signup);
-router.get('/signup', auth_controller.signup);
+router.get('/signup', specialLogger , auth_controller.signup);
 router.get('/login', auth_controller.login);
 router.get('/dashboard', dashboard_controller.dashboard);
 

@@ -6,6 +6,16 @@ const database = require('./db');
 const app = express();
 const port = 3001;
 
+
+const appLoggerMiddleware = (req, res, next) => {
+	// console.log('Logged '+ req.url + ' ' + req.method + ' -- ' + new Date);
+	console.log(new Date, req.method, req.url);
+	next()
+}
+
+app.use(appLoggerMiddleware);
+
+
 // routes
 const routes = require('./routes/index.js');
 
@@ -24,6 +34,7 @@ app.use(session({
 }));
 
 app.use('/', routes);
+
 
 
 // server will listen once the database connection in established
