@@ -31,6 +31,8 @@ exports.login = (req, res) => {
 exports.create = async (req, res) => {
 	const db = req.app.locals.db;
 
+	console.log(req.body);
+
 	let errors = {}; 
 
 	let regExp = {

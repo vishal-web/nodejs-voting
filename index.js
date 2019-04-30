@@ -9,7 +9,8 @@ const port = 3001;
 
 const appLoggerMiddleware = (req, res, next) => {
 	// console.log('Logged '+ req.url + ' ' + req.method + ' -- ' + new Date);
-	console.log(new Date, req.method, req.url);
+	// console.log(new Date, req.method, req.url);
+	res.setHeader('Access-Control-Allow-Origin','*');
 	next()
 }
 
@@ -22,8 +23,18 @@ const routes = require('./routes/index.js');
 // view engine set
 app.set('views', path.join(__dirname, 'views'));
 
+/*var options = {
+  inflate: true,
+  limit: '100kb',
+  type: 'application/octet-stream'
+};*/
+
 // middlewares
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
+// app.use(bodyParser.raw(options));
+
+
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.static('public'));
 

@@ -32,4 +32,6 @@ router.get('/api/logout', dashboard_controller.logout);
 router.post('/api/vote', dashboard_controller.vote);
 
 
+router.use('/product', require('./productRoutes').router);
+
 module.exports = router;
