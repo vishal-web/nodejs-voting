@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 
 module.exports = {
 	sendmail : function(to, from, subject, message) {
-		var trasnporter = nodemailer.createTransport({
+		var transporter = nodemailer.createTransport({
 			service : "gmail",
 			auth : {
 				user : "someone@gmail.com",
@@ -17,7 +17,7 @@ module.exports = {
 			html : message
 		}
 
-		trasnporter.sendMail(mailoptions, function(err, result) {
+		transporter.sendMail(mailoptions, function(err, result) {
 			var response;
 			if (err) {
 				response = {

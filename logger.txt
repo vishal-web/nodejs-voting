@@ -1,0 +1,4 @@
+Router Logged host localhost:3001 path /api/login -- Tue Jun 04 2019 11:03:21 GMT+0530 (IST)
+Router Logged host localhost:3001 path /api/login -- Tue Jun 04 2019 11:03:46 GMT+0530 (IST)
+Router Logged host localhost:3001 path /signup -- Tue Jun 04 2019 11:03:54 GMT+0530 (IST)
+Router Logged host localhost:3001 path /api/users -- Tue Jun 04 2019 11:03:54 GMT+0530 (IST)

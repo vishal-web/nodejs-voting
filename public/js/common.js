@@ -45,6 +45,10 @@ $(".loginForm").submit(function(e) {
 				});
 				$("#err").empty().append(html);
 			}else if(res.status == "success") { 
+
+				localStorage.setItem('token' , res.token);
+				localStorage.setItem('refreshToken' , res.refreshToken);
+
 				$("#err").empty().append("<div class='alert alert-success'>"+res.message+"</div>");
 				$(".loginForm").trigger("reset");
 				window.location.href = '/dashboard';
@@ -61,6 +65,9 @@ $(document).ready(function() {
 			url : url,
 			type : "GET",
 			dataType : "JSON",
+			headers : {
+				'x-access-token' : localStorage.getItem('token'),
+			},
 			success : function(response) {
 
 				if (response.status == "success") {
@@ -112,6 +119,9 @@ $(document).on("click",".plus", function() {
 		type : "POST",
 		dataType : "JSON",
 		data : {email : email, vote : vote},
+		headers : {
+			'x-access-token' : localStorage.getItem('token'),
+		},
 		success : function(response) {
 			if (response.status == "success") {
 				// location.reload();
@@ -132,6 +142,9 @@ $(document).on("click",".minus", function() {
 		type : "POST",
 		dataType : "JSON",
 		data : {email : email, vote : vote},
+		headers : {
+			'x-access-token' : localStorage.getItem('token'),
+		},
 		success : function(response) {
 			if (response.status == "success") {
 				// location.reload();
@@ -148,6 +161,9 @@ $(".logout").click(function() {
 		url : url,
 		type : "GET",
 		dataType : "JSON", 
+		headers : {
+			'x-access-token' : localStorage.getItem('token'),
+		},
 		success : function(response) {
 			if (response.status == "success") {
 				window.location.href = "/login";

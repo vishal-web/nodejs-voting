@@ -7,11 +7,9 @@ const app = express();
 const port = 3001;
 
 
-const appLoggerMiddleware = (req, res, next) => {
-	// console.log('Logged '+ req.url + ' ' + req.method + ' -- ' + new Date);
-	// console.log(new Date, req.method, req.url);
+const appLoggerMiddleware = (req, res, next) => { 
 	res.setHeader('Access-Control-Allow-Origin','*');
-	next()
+	next();
 }
 
 app.use(appLoggerMiddleware);
@@ -45,6 +43,7 @@ app.use(session({
 }));
 
 app.use('/', routes);
+app.locals.port = port;
 
 
 

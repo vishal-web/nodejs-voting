@@ -8,6 +8,8 @@ const bcrypt = require("bcryptjs");
 const validator = require("validator");
 const _ = require("lodash");
 const common = require("../common.js");
+const config = require('../config.js');
+const jwt = require('jsonwebtoken');
 
 
 let emailExists = async function(db, email) {
@@ -30,8 +32,6 @@ exports.login = (req, res) => {
 
 exports.create = async (req, res) => {
 	const db = req.app.locals.db;
-
-	console.log(req.body);
 
 	let errors = {}; 
 
@@ -121,12 +121,12 @@ exports.create = async (req, res) => {
 					let from = "vishalkumar750372@gmail.com"; // to show from name -> "'From Name' <something@xyz.com>" 	;
 					let subject = "Registration";
 					let message = "<p> Hi <b>" + formData.name + "</b>, </p>";
-						message+= "<p> You have successfully registered with us.</p><br>";
-						message+= "<p> Login Credentials</p>";
-						message+= "<p> Email : " + formData.email + "</p>";
-						message+= "<p> Password : " + req.body.password + "</p><br><br>";
-						message+= "<p> Thank You....!</p>";
-						message+= "<br>";
+							message+= "<p> You have successfully registered with us.</p><br>";
+							message+= "<p> Login Credentials</p>";
+							message+= "<p> Email : " + formData.email + "</p>";
+							message+= "<p> Password : " + req.body.password + "</p><br><br>";
+							message+= "<p> Thank You....!</p>";
+							message+= "<br>";
 
 					common.sendmail(to, from, subject, message);
 
@@ -186,7 +186,26 @@ exports.login_user = (req, res) => {
 					response = {
 						status : "success",
 						message : "You have successfully logged in.",
-					} 
+					}
+
+					const token = jwt.sign(
+						formData,
+						config.secret,
+						{
+							expiresIn : config.tokenLife
+						}
+					);
+
+					const refreshToken = jwt.sign(
+						formData,
+						config.refreshTokenSecret,
+						{
+							expiresIn : config.refreshTokenLife
+						}
+					);
+
+					response.token = token;
+					response.refreshToken = refreshToken;
 
 					req.session.email = result[0].email;
 					req.session.logged_in = true;
@@ -196,7 +215,7 @@ exports.login_user = (req, res) => {
 					response = {
 						status : "error",
 						errors : {
-							"authentication" : "You have entered an invalid email or password.",
+							"authentication" : "You have entered an incorrect email or password.",
 						},
 					}
 					
@@ -206,7 +225,7 @@ exports.login_user = (req, res) => {
 				response = {
 					status : "error",
 					errors : {
-						"authentication" : "You have entered an invalid email or password.",
+						"authentication" : "You have entered an incorrect email or password.",
 					},
 				}
 				
