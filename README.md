@@ -3,8 +3,6 @@
 ### Signup
 ---------------------
 
-Request
-	
 	POST - {url}/api/signup
 
 Fields
@@ -38,27 +36,24 @@ Response Example
 	}
 
 ### Login
-
-Request
+---------------------
 
 	POST - {url}/api/login
 
-Fields - 
+Fields
 
 	a. email
 	b. password
 
-Response Example - 
+Response Example
 
 	Success : On successfull login credentials
-
 	{
 	    status : "success",
 	    message : "You have successfully logged in.",
 	}
 
 	Error : Form validation
-
 	{
 	    "status": "error",
 	    "errors": {
@@ -68,7 +63,6 @@ Response Example -
 	}
 
 	Error : Authentication Failed 
-
 	{
 	    "status": "error",
 	    "errors": {
@@ -77,19 +71,16 @@ Response Example -
 	}
 
 	Error : When you missed the fields while requesting
-
 	{
 	    "status": "error",
 	    "message": "Missing : Please include email and password"
 	}
 
-After successfull authentication user will go to Dashboard - Url - /dashboard
+	After successfull authentication user will go to Dashboard - Url - /dashboard
 
 
 ### Dashboard Users
 ---------------------
-
-Request
 	
 	GET - {url}/api/users
 
@@ -122,8 +113,6 @@ Response Example
 ### Vote
 ---------------------
 
-Request
-
 	POST - {url}/api/vote
 
 Fields 
@@ -147,8 +136,6 @@ Response Example
 
 ### Logout
 ---------------------
-
-Request
 
 	GET - {url}/api/logout
 
